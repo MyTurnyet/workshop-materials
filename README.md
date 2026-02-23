@@ -94,6 +94,8 @@ claude-code-workshop/
 
 ## Pre-Workshop Setup (Participants)
 
+**IMPORTANT:** Participants should clone the **separate starter repository**, NOT this workshop-materials repository.
+
 ### 1. Install Claude Code CLI
 ```bash
 # Follow installation instructions at:
@@ -106,12 +108,17 @@ claude code configure
 # Enter your Anthropic API key
 ```
 
-### 3. Download Starter Project
-Participants should download/clone the `starter-project/claude-code-workshop/` directory.
+### 3. Clone Starter Project
+```bash
+# Participants clone the starter repository
+git clone https://github.com/MyTurnyet/claude-code-workshop-starter.git
+cd claude-code-workshop-starter
+```
+
+**Note:** This is a separate repository from the workshop materials. Participants should NOT clone the `workshop-materials` repository, which contains solutions and facilitator guides.
 
 ### 4. Verify Setup
 ```bash
-cd claude-code-workshop
 mvn clean compile
 ```
 
@@ -123,6 +130,22 @@ mvn test
 ```
 
 Some tests should fail - that's expected! They'll fix them in Challenge 1.
+
+### Repository Structure
+
+There are **TWO separate repositories**:
+
+1. **claude-code-workshop-starter** (for participants)
+   - Contains starter code with intentional bugs
+   - Clean README for participants
+   - No solutions or hints visible
+   - Clone command: `git clone https://github.com/MyTurnyet/claude-code-workshop-starter.git`
+
+2. **workshop-materials** (for facilitators)
+   - Contains challenge guides, solutions, hints
+   - Facilitator documentation
+   - Assessment materials
+   - This repository
 
 ## Materials Included
 
