@@ -1,0 +1,72 @@
+package com.workshop;
+
+import java.util.logging.Logger;
+
+/**
+ * Service layer for calculator operations.
+ * Now includes logging for all operations.
+ */
+public class CalculatorService {
+
+    private static final Logger LOGGER = Logger.getLogger(CalculatorService.class.getName());
+    private final Calculator calculator;
+
+    public CalculatorService() {
+        this.calculator = new Calculator();
+    }
+
+    /**
+     * Performs addition with validation and logging.
+     */
+    public int performAddition(int a, int b) {
+        LOGGER.info(String.format("Performing addition: %d + %d", a, b));
+        int result = calculator.add(a, b);
+        LOGGER.info(String.format("Addition result: %d", result));
+        return result;
+    }
+
+    /**
+     * Performs subtraction with validation and logging.
+     */
+    public int performSubtraction(int a, int b) {
+        LOGGER.info(String.format("Performing subtraction: %d - %d", a, b));
+        int result = calculator.subtract(a, b);
+        LOGGER.info(String.format("Subtraction result: %d", result));
+        return result;
+    }
+
+    /**
+     * Performs multiplication with validation and logging.
+     */
+    public int performMultiplication(int a, int b) {
+        LOGGER.info(String.format("Performing multiplication: %d * %d", a, b));
+        int result = calculator.multiply(a, b);
+        LOGGER.info(String.format("Multiplication result: %d", result));
+        return result;
+    }
+
+    /**
+     * Performs division with validation and logging.
+     */
+    public int performDivision(int a, int b) {
+        LOGGER.info(String.format("Performing division: %d / %d", a, b));
+        try {
+            int result = calculator.divide(a, b);
+            LOGGER.info(String.format("Division result: %d", result));
+            return result;
+        } catch (IllegalArgumentException e) {
+            LOGGER.severe(String.format("Division error: %s", e.getMessage()));
+            throw e;
+        }
+    }
+
+    /**
+     * Calculates percentage with validation and logging.
+     */
+    public double performPercentageCalculation(int value, int percent) {
+        LOGGER.info(String.format("Performing percentage calculation: %d%% of %d", percent, value));
+        double result = calculator.percentage(value, percent);
+        LOGGER.info(String.format("Percentage calculation result: %.2f", result));
+        return result;
+    }
+}

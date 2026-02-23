@@ -1,0 +1,71 @@
+# Project Coding Standards
+
+## Method Length
+- All methods must be under 20 lines of code
+- If a method exceeds 20 lines, extract helper methods
+- Break complex logic into smaller, focused methods
+- Count only executable lines (not comments or blank lines)
+
+## Documentation
+- All public methods must have Javadoc comments
+- Include @param tags for all parameters with descriptions
+- Include @return tag for non-void methods
+- Include @throws tag for checked exceptions
+- Describe what the method does, not how it does it
+- Keep Javadoc concise but complete
+
+## Encapsulation
+- No public fields (except public static final constants)
+- All instance fields must be private
+- Provide public getters/setters only when truly needed
+- Validate inputs in all setters
+- Consider immutability - use final where possible
+
+## Naming Conventions (Google Java Style Guide)
+- Class names: PascalCase (InventoryManager)
+- Method names: camelCase starting with verb (addItem, calculateTotal)
+- Variable names: camelCase (itemName, totalValue)
+- Constants: UPPER_SNAKE_CASE (MAX_ITEMS, DEFAULT_QUANTITY)
+- No abbreviations: calc → calculateTotalValue, getAll → getAllItems
+- Boolean variables/methods: isValid, hasItems, canProcess
+- Collections: plural names (items, quantities, prices)
+
+## Dependency Injection
+- Use constructor injection for required dependencies
+- Avoid field injection
+- Make injected dependencies final
+- Keep constructors simple (just assignment, no logic)
+
+## Logging
+- Never use System.out.println in production code
+- Use java.util.logging.Logger or SLF4J
+- Create logger: `private static final Logger LOGGER = Logger.getLogger(ClassName.class.getName());`
+- Log at appropriate levels:
+  - SEVERE: errors and exceptions
+  - WARNING: potential problems
+  - INFO: significant operations
+  - FINE/FINER: debugging details
+
+## Validation
+- Validate all inputs in public methods
+- Throw IllegalArgumentException for invalid inputs
+- Provide clear, specific error messages
+- Validate at API boundaries, trust internal calls
+
+## Single Responsibility Principle
+- Each class should have one reason to change
+- Each method should do one thing well
+- Extract helper methods for complex operations
+- Avoid methods with multiple responsibilities
+
+## Error Handling
+- Don't catch exceptions unless you can handle them meaningfully
+- Don't swallow exceptions silently
+- Log errors before re-throwing
+- Provide context in exception messages
+
+## Code Organization
+- Order: constants → fields → constructors → public methods → private methods
+- Group related methods together
+- Keep related helper methods near their callers
+- Separate concerns with blank lines and comments
