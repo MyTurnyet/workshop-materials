@@ -10,36 +10,149 @@ There are multiple valid approaches. This solution presents one recommended path
 
 ---
 
-## Step 1: Planning (2 minutes)
+## Phase 1: Collaborative Planning (4 minutes)
 
-### Understand Requirements
+This solution uses the **task-based design workflow** introduced in Challenge 5.
+
+### Step 1: Discuss Requirements (1 minute)
 
 **Prompt to Claude:**
 ```
-I'm building a complete BookService for the claude-code-workshop. Review the requirements in CHALLENGE-06-Build-BookService-Capstone.md and help me create a step-by-step implementation plan.
+I'm building a complete BookService API for the claude-code-workshop. Here are the requirements:
+- Book entity with properties: id, title, author, isbn, publishedYear, genre, price, stockQuantity
+- Repository interface with CRUD + custom finders
+- Service with business validation (stock >= 0, price > 0, ISBN format, year 1450-current)
+- Comprehensive tests
+
+Help me understand what we need to build and the best implementation order.
 ```
 
-**Expected Plan:**
-1. Create Book.java entity
-2. Create BookRepository.java interface
-3. Create BookService.java interface
-4. Create BookServiceImpl.java with business logic
-5. Create BookServiceTest.java with comprehensive tests
-6. Verify everything compiles and tests pass
+### Step 2: Create Implementation Checklist Together (2 minutes)
 
-### Optional: Use /ideate or Plan Mode
+**Prompt to Claude:**
+```
+Let's create a comprehensive task checklist together in BOOK-SERVICE-TASKS.md. Include:
+1. Setup tasks
+2. Entity creation
+3. Repository interface
+4. Service interface and implementation
+5. Validation logic
+6. Testing tasks
+7. Final verification
+
+Organize by phases and make each task concrete and actionable. Include all business rules from the requirements.
+```
+
+**Expected Checklist (BOOK-SERVICE-TASKS.md):**
+```markdown
+# BookService Implementation Checklist
+
+## Setup & Planning
+- [x] Review requirements with Claude
+- [x] Create this task checklist
+- [ ] Use /remember to save plan
+
+## Entity Layer
+- [ ] Create Book.java entity class
+- [ ] Add all 8 properties with proper types
+- [ ] Generate getters and setters
+- [ ] Add Javadoc to all public methods
+
+## Repository Layer
+- [ ] Create BookRepository interface
+- [ ] Add CRUD method signatures:
+  - [ ] findAll()
+  - [ ] findById(Long id)
+  - [ ] save(Book book)
+  - [ ] update(Long id, Book book)
+  - [ ] delete(Long id)
+- [ ] Add custom finders:
+  - [ ] findByAuthor(String author)
+  - [ ] findByGenre(String genre)
+  - [ ] findByIsbn(String isbn)
+- [ ] Complete Javadoc for all methods
+
+## Service Layer - Interface
+- [ ] Create BookService interface
+- [ ] Define business method signatures
+- [ ] Add comprehensive Javadoc
+
+## Service Layer - Implementation
+- [ ] Create BookServiceImpl class
+- [ ] Add constructor injection for repository
+- [ ] Implement CRUD operations:
+  - [ ] createBook(Book book)
+  - [ ] findBookById(Long id)
+  - [ ] findAllBooks()
+  - [ ] updateBook(Long id, Book book)
+  - [ ] deleteBook(Long id)
+- [ ] Implement custom finders:
+  - [ ] findBooksByAuthor(String author)
+  - [ ] findBooksByGenre(String genre)
+- [ ] Add Logger instance and logging
+
+## Validation Methods
+- [ ] Create validateBookInput(Book book) helper
+- [ ] Create validateStock(int stock) - must be >= 0
+- [ ] Create validatePrice(double price) - must be > 0
+- [ ] Create validateISBN(String isbn) - format check
+- [ ] Create validatePublishedYear(int year) - 1450 to current
+- [ ] Ensure all validation methods under 20 lines
+
+## Testing
+- [ ] Create BookServiceTest class
+- [ ] Set up Mockito mocks (@Mock, @InjectMocks)
+- [ ] Test createBook:
+  - [ ] Test successful creation
+  - [ ] Test with null book
+  - [ ] Test with invalid stock
+  - [ ] Test with invalid price
+  - [ ] Test with invalid ISBN
+  - [ ] Test with invalid year
+- [ ] Test findBookById (found and not found cases)
+- [ ] Test findAllBooks
+- [ ] Test updateBook
+- [ ] Test deleteBook
+- [ ] Test findBooksByAuthor
+- [ ] Test findBooksByGenre
+- [ ] Verify 80%+ code coverage
+
+## Final Verification
+- [ ] Run mvn compile - no errors
+- [ ] Run mvn test - all tests pass
+- [ ] Verify all methods under 20 lines
+- [ ] Verify all public methods have Javadoc
+- [ ] Confirm all business rules implemented
+- [ ] Update PROGRESS.md
+```
+
+### Step 3: Review and Use /remember (1 minute)
+
+Review the checklist with Claude and refine if needed. Then use /remember:
 
 ```
-/ideate Create a plan for building a complete Book Management API with entity, repository, service, and tests
+/remember Created BOOK-SERVICE-TASKS.md with comprehensive implementation checklist - 40+ tasks organized into 8 phases
+
+/remember Building BookService with: Book entity (8 properties), BookRepository (CRUD + 3 custom finders), BookService interface + Impl, comprehensive tests
+
+/remember Business rules to implement: stock >= 0, price > 0, ISBN format check, publishedYear 1450-current year, null checks on required fields
+
+/remember Following project rules: methods <20 lines, complete Javadoc, constructor injection, proper logging
+
+/remember Will follow BOOK-SERVICE-TASKS.md systematically and mark tasks complete as we go
 ```
 
 ---
 
-## Step 2: Create Book Entity (3 minutes)
+## Phase 2: Systematic Implementation (12 minutes)
+
+**Follow your BOOK-SERVICE-TASKS.md checklist. Mark tasks complete as you finish them.**
+
+### Step 1: Create Book Entity (3 minutes)
 
 **Prompt to Claude:**
 ```
-Create Book.java entity in src/main/java/com/workshop/book/ with:
+Following our BOOK-SERVICE-TASKS.md "Entity Layer" section, create Book.java entity in src/main/java/com/workshop/book/ with:
 
 Properties (all private):
 - Long id
@@ -95,13 +208,18 @@ public class Book {
 }
 ```
 
+**After completing Book entity:**
+```
+Claude, please mark all "Entity Layer" tasks as complete in BOOK-SERVICE-TASKS.md. We're moving to the Repository Layer.
+```
+
 ---
 
-## Step 3: Create Repository Interface (2 minutes)
+### Step 2: Create Repository Interface (2 minutes)
 
 **Prompt to Claude:**
 ```
-Create BookRepository.java interface in src/main/java/com/workshop/book/ with:
+Following the "Repository Layer" section of our checklist, create BookRepository.java interface in src/main/java/com/workshop/book/ with:
 
 Methods:
 - List<Book> findAll()

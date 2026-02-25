@@ -34,31 +34,99 @@ Read order/OrderService.java and analyze it. Tell me:
   - System.out.println instead of proper logging
   - No Javadoc on public methods
 
-### Step 2: Use /remember to Save the Plan
+### Step 2: Create Task Checklist
+
+**Prompt to Claude:**
+```
+Based on your analysis, please create a refactoring task checklist in REFACTOR-TASKS.md. Include tasks for:
+1. Analyzing current issues
+2. Breaking down long methods
+3. Renaming unclear methods
+4. Adding documentation
+5. Adding proper logging
+6. Verification steps
+
+Organize the checklist by phases.
+```
+
+**Expected Checklist (REFACTOR-TASKS.md):**
+```markdown
+# OrderService Refactoring Checklist
+
+## Analysis
+- [x] Read and analyze OrderService.java
+- [x] Identify all code smells and issues
+- [x] Document current responsibilities
+- [x] Create this refactoring checklist
+
+## Method Extraction
+- [ ] Break down createOrder method (currently 50+ lines)
+  - [ ] Extract validateOrderInputs method
+  - [ ] Extract calculateOrderTotal method
+  - [ ] Extract createNewOrder method
+- [ ] Break down updateOrderStatus method
+  - [ ] Extract validateStatusUpdate method
+- [ ] Ensure main methods under 20 lines
+
+## Renaming
+- [ ] Rename calc() to calculateCustomerTotal()
+- [ ] Rename getHistory() to getCustomerHistory()
+- [ ] Verify all method names are clear
+
+## Logging
+- [ ] Add Logger import and instance
+- [ ] Replace System.out.println with LOGGER.info()
+- [ ] Add logging to createOrder
+- [ ] Add logging to updateOrderStatus
+- [ ] Add logging to cancelOrder
+
+## Documentation
+- [ ] Add Javadoc to all public methods
+- [ ] Ensure Javadoc includes @param tags
+- [ ] Ensure Javadoc includes @return tags
+- [ ] Ensure Javadoc includes @throws tags
+
+## Verification
+- [ ] Verify all methods under 20 lines
+- [ ] Run mvn compile - no errors
+- [ ] Check project rules compliance
+- [ ] Update PROGRESS.md
+- [ ] Final review
+```
+
+### Step 3: Use /remember to Save the Plan
 
 **Commands:**
 ```
+/remember Created REFACTOR-TASKS.md with comprehensive refactoring checklist
+
 /remember OrderService problems: 300+ lines, methods >50 lines, multiple responsibilities (CRUD + validation + history + stats), poor naming (calc, getHistory), duplicate logic
 
-/remember Refactoring strategy: 1) Extract validation methods from createOrder and updateOrderStatus, 2) Rename unclear methods (calc → calculateCustomerTotal, getHistory → getCustomerHistory), 3) Break down long methods into smaller ones (<20 lines each), 4) Add Javadoc to all public methods, 5) Replace System.out.println with Logger
+/remember Refactoring strategy from checklist: 1) Extract validation methods from createOrder and updateOrderStatus, 2) Rename unclear methods (calc → calculateCustomerTotal, getHistory → getCustomerHistory), 3) Break down long methods into smaller ones (<20 lines each), 4) Add Javadoc to all public methods, 5) Replace System.out.println with Logger
 
 /remember Keep OrderService focused on order management. Don't split into separate classes yet - just make methods smaller and clearer.
+
+/remember Follow REFACTOR-TASKS.md systematically and mark tasks complete as we go
 ```
 
 ---
 
 ## Phase 2: Extract Methods and Refactor (5 minutes)
 
+**Follow your REFACTOR-TASKS.md checklist systematically. Mark tasks complete as you go.**
+
 ### Step 1: Break Down createOrder Method
 
 **Prompt to Claude:**
 ```
-Refactor the createOrder method in OrderService.java to follow project rules:
-1. Break it into smaller methods, each under 20 lines
-2. Extract validation into validateOrderInputs method
-3. Extract total calculation into calculateOrderTotal method
-4. Extract order creation into createNewOrder method
+Following our REFACTOR-TASKS.md checklist "Method Extraction" section, refactor the createOrder method:
+1. Extract validateOrderInputs method
+2. Extract calculateOrderTotal method
+3. Extract createNewOrder method
+4. Ensure the main createOrder method is under 20 lines
 5. Add Javadoc to the public createOrder method
+
+Mark these tasks as complete in REFACTOR-TASKS.md as we finish them.
 ```
 
 **Expected Changes:**
@@ -148,31 +216,42 @@ private Order createNewOrder(Long customerId, String customerName, String custom
 
 **Prompt to Claude:**
 ```
-Refactor the updateOrderStatus method similarly:
+Continuing with our checklist "Method Extraction" section, refactor updateOrderStatus:
 1. Extract validation into validateStatusUpdate method
 2. Keep the main method under 20 lines
 3. Add Javadoc
+
+Mark the updateOrderStatus tasks complete in REFACTOR-TASKS.md.
 ```
 
 ### Step 3: Rename Unclear Methods
 
 **Prompt to Claude:**
 ```
-Rename these methods for clarity:
-1. calc(Long customerId) → calculateCustomerTotal(Long customerId)
-2. getHistory(Long customerId) → getCustomerHistory(Long customerId)
-Add Javadoc to the renamed methods.
+Moving to the "Renaming" section of our checklist:
+1. Rename calc(Long customerId) → calculateCustomerTotal(Long customerId)
+2. Rename getHistory(Long customerId) → getCustomerHistory(Long customerId)
+3. Add Javadoc to the renamed methods
+
+Mark renaming tasks complete in REFACTOR-TASKS.md.
 ```
 
 ### Step 4: Add Logging
 
 **Prompt to Claude:**
 ```
-Add proper logging to OrderService:
+Now the "Logging" section of our checklist. Add proper logging to OrderService:
 1. Import java.util.logging.Logger
 2. Create a logger: private static final Logger LOGGER = Logger.getLogger(OrderService.class.getName());
 3. Replace all System.out.println with LOGGER.info()
 4. Add logging in createOrder, updateOrderStatus, and cancelOrder
+
+Mark all logging tasks complete in REFACTOR-TASKS.md.
+```
+
+**After Step 4, mark progress:**
+```
+Claude, please mark all tasks in the "Method Extraction", "Renaming", and "Logging" sections as complete in REFACTOR-TASKS.md. We're now moving to the "Documentation" section.
 ```
 
 ---
@@ -325,25 +404,35 @@ Review all IllegalArgumentException messages and make them more specific and hel
 
 ## Key Learning Points
 
-### 1. Context Management
+### 1. Task-Based Design
+- **Create checklist before coding** - Planning prevents scope creep
+- **Follow checklist systematically** - Work through tasks in order
+- **Mark tasks complete** - Track progress visibly
+- **Reference checklist throughout** - Stay focused on plan
+- **Checklist as communication tool** - Claude understands the full plan
+
+### 2. Context Management
 - Use /remember to save key decisions
+- Reference checklist in /remember commands
 - Document progress in PROGRESS.md
 - Provide summary when resuming
 
-### 2. Incremental Refactoring
-- Break large refactoring into phases
+### 3. Incremental Refactoring
+- Break large refactoring into phases (via checklist)
 - Verify after each phase
 - Don't try to do everything at once
+- Follow systematic approach
 
-### 3. Project Rules Application
+### 4. Project Rules Application
 - Rules automatically enforced
 - Methods under 20 lines
 - Javadoc required
 - Consistent standards
 
-### 4. Multi-Session Work
+### 5. Multi-Session Work
 - Real projects span multiple days
 - /remember preserves decisions
+- Checklist shows progress across sessions
 - Documentation bridges sessions
 - Context is key when resuming
 
