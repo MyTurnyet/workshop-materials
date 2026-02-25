@@ -1,6 +1,96 @@
 # Challenge 6 Hints: Build BookService (Capstone)
 
-This is the capstone challenge integrating all learned skills. Use these hints only if stuck.
+This is the capstone challenge integrating all learned skills, including **task-based design**. Use these hints only if stuck.
+
+---
+
+## Task-Based Design Workflow Hints
+
+**IMPORTANT:** Challenge 6 requires using the full task-based design workflow. Don't skip this!
+
+### Level 1: Getting Started with Task-Based Design
+
+**If you're not sure how to start:**
+1. First, discuss requirements with Claude
+2. Ask Claude to create a comprehensive checklist in BOOK-SERVICE-TASKS.md
+3. Review and refine the checklist together
+4. Use /remember to save the plan
+5. Then start implementing, following the checklist
+
+**Example prompts:**
+```
+"I'm building a complete BookService. Let's discuss the requirements and create an implementation plan."
+
+"Create a comprehensive task checklist in BOOK-SERVICE-TASKS.md with phases for: Setup, Entity, Repository, Service Interface, Service Implementation, Validation, Testing, and Verification."
+
+"/remember Created BOOK-SERVICE-TASKS.md with 40+ tasks across 8 phases"
+```
+
+### Level 2: Checklist Structure
+
+Your BOOK-SERVICE-TASKS.md should have these sections:
+- **Setup & Planning** (2-3 tasks)
+- **Entity Layer** (4-5 tasks for Book.java)
+- **Repository Layer** (8-10 tasks for CRUD + custom finders)
+- **Service Layer - Interface** (3-4 tasks)
+- **Service Layer - Implementation** (8-10 tasks for CRUD + custom methods)
+- **Validation Methods** (5-6 tasks for business rules)
+- **Testing** (15-20 tasks covering all scenarios)
+- **Final Verification** (5-6 tasks)
+
+**Total:** ~40-50 tasks
+
+### Level 3: Complete Task-Based Workflow
+
+**Phase 1: Planning (4 min)**
+```
+"I'm building BookService with: Book entity (8 properties), BookRepository (CRUD + 3 finders), BookService with validation (stock>=0, price>0, ISBN format, year 1450-current). Create detailed checklist in BOOK-SERVICE-TASKS.md."
+
+[Review checklist with Claude, refine if needed]
+
+"/remember Created BOOK-SERVICE-TASKS.md with implementation plan"
+"/remember Business rules: stock>=0, price>0, ISBN format, year 1450-current"
+```
+
+**Phase 2: Implementation (12 min)**
+```
+"Following BOOK-SERVICE-TASKS.md 'Entity Layer' section, create Book.java"
+[After completion] "Mark Entity Layer tasks complete"
+
+"Following 'Repository Layer', create BookRepository"
+[Mark complete]
+
+"Following 'Service Layer', create BookService interface and BookServiceImpl with validation"
+[Mark complete]
+
+"Following 'Validation Methods', implement all business rule validators"
+[Mark complete]
+
+"Following 'Testing', create BookServiceTest with comprehensive tests"
+[Mark complete]
+```
+
+**Phase 3: Verification (4 min)**
+```
+"Read BOOK-SERVICE-TASKS.md. What's incomplete?"
+"Run mvn compile and mvn test"
+"Verify all methods under 20 lines and have Javadoc"
+"Mark Final Verification tasks complete"
+```
+
+### Common Task-Based Design Issues
+
+**Issue: "I forgot to create the checklist"**
+Stop now and create it! Don't continue coding without a plan. It will save time.
+
+**Issue: "The checklist is too long (60+ tasks)"**
+Good! That means you're being thorough. Just work through it systematically.
+
+**Issue: "I'm not marking tasks complete"**
+Set a reminder: after each section, mark tasks complete. Or ask Claude to do it.
+
+**Issue: "The checklist doesn't match what I'm doing"**
+That's okay! Update the checklist. Add tasks, remove tasks, refine as you go.
 
 ---
 
