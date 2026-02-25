@@ -5,11 +5,12 @@
 **Project:** claude-code-workshop (same directory)
 
 ## Learning Objectives
+- **Use task-based design** to plan refactoring work
 - Manage Claude Code's context window effectively
 - Use /remember command to save decisions
 - Practice closing and resuming sessions
 - Handle large refactoring tasks across sessions
-- Document progress
+- Document progress with task checklists
 
 ## Scenario
 
@@ -35,6 +36,8 @@ You're in `claude-code-workshop/` with:
 
 ### Phase 1: Analysis and Planning (4 min)
 
+**Step 1: Analyze the code (1 min)**
+
 **Prompt to Claude:**
 ```
 Read order/OrderService.java and identify all the problems. What responsibilities does this class have that should be separate?
@@ -48,26 +51,86 @@ Expected findings:
 - Duplicate logic
 - Missing proper validation
 
-**Use /remember to save the plan:**
+**Step 2: Create a task checklist (2 min)**
+
+**Prompt to Claude:**
 ```
+Based on your analysis, please create a refactoring task checklist in REFACTOR-TASKS.md. Include tasks for:
+1. Analyzing current issues
+2. Breaking down long methods
+3. Renaming unclear methods
+4. Adding documentation
+5. Verification steps
+
+Organize the checklist by phases.
+```
+
+Claude will generate a checklist similar to:
+```markdown
+# OrderService Refactoring Checklist
+
+## Analysis
+- [x] Identify all code smells and issues
+- [x] Document current responsibilities
+
+## Method Extraction
+- [ ] Break down createOrder method (currently 60+ lines)
+- [ ] Break down updateOrderStatus method
+- [ ] Extract validation into separate methods
+
+## Renaming
+- [ ] Rename calc() to calculateCustomerTotal()
+- [ ] Rename getHistory() to getCustomerOrderHistory()
+
+## Documentation
+- [ ] Add Javadoc to all public methods
+- [ ] Ensure Javadoc includes @param and @return tags
+
+## Verification
+- [ ] Verify all methods under 20 lines
+- [ ] Run mvn compile
+- [ ] Check project rules compliance
+```
+
+Review the checklist and refine if needed.
+
+**Step 3: Use /remember to save the plan (1 min)**
+
+```
+/remember Created REFACTOR-TASKS.md with refactoring checklist for OrderService
+
 /remember OrderService has these problems: too long, methods >50 lines, multiple responsibilities (CRUD + validation + history tracking), poor naming
 
-/remember Refactoring strategy: 1) Extract validation methods, 2) Rename unclear methods (calc → calculateCustomerTotal), 3) Break down createOrder and updateOrderStatus methods, 4) Follow project rules (methods <20 lines, add Javadoc)
+/remember Refactoring strategy from checklist: 1) Extract validation methods, 2) Rename unclear methods (calc → calculateCustomerTotal), 3) Break down createOrder and updateOrderStatus methods, 4) Follow project rules (methods <20 lines, add Javadoc)
 
 /remember Keep OrderService focused on order management only. Validation should be inline but in separate methods.
 ```
 
 ### Phase 2: Extract and Refactor Methods (5 min)
 
-**Prompt to Claude:**
+**Following your checklist, prompt Claude:**
 ```
-Refactor OrderService.java to follow the rules in .claude/rules.md:
+Let's work through our REFACTOR-TASKS.md checklist. Starting with the "Method Extraction" section:
+
 1. Break the createOrder method into smaller methods (under 20 lines each)
 2. Break the updateOrderStatus method into smaller methods
-3. Rename calc() to calculateCustomerTotal()
-4. Add Javadoc to all public methods
-5. Extract validation into separate helper methods
+3. Extract validation into separate helper methods
+
+Then handle "Renaming":
+4. Rename calc() to calculateCustomerTotal()
+
+Finally, complete "Documentation":
+5. Add Javadoc to all public methods
+
+Follow the rules in .claude/rules.md throughout.
 ```
+
+**As you work, mark tasks complete:**
+```
+Claude, please mark the "Break down createOrder method" task as complete in REFACTOR-TASKS.md
+```
+
+Or manually edit REFACTOR-TASKS.md: change `- [ ]` to `- [x]` for completed items.
 
 Expected changes:
 - `createOrder()` split into: `validateOrder()`, `calculateTotal()`, `createNewOrder()`
@@ -75,6 +138,7 @@ Expected changes:
 - `calc()` renamed to `calculateCustomerTotal()`
 - Javadoc added throughout
 - All methods under 20 lines
+- Checklist items marked as complete
 
 ### Phase 3: Close and Resume Session (1 min)
 
@@ -117,27 +181,34 @@ Update PROGRESS.md with a summary of the OrderService refactoring: what was done
 
 ## Success Criteria
 
+- [ ] **Created REFACTOR-TASKS.md checklist** with Claude's help
 - [ ] Used /remember at least 3 times to save decisions
+- [ ] **Followed checklist systematically** during refactoring
+- [ ] **Marked completed tasks** in the checklist
 - [ ] OrderService reduced from 300+ to ~200 lines
 - [ ] All methods under 20 lines
 - [ ] All public methods have Javadoc
 - [ ] Closed and resumed session successfully
 - [ ] Code compiles: `mvn compile`
 - [ ] PROGRESS.md updated with refactoring summary
-- [ ] Understand context management workflow
+- [ ] Understand task-based design and context management workflow
 
 ## Strategy Cards
 
+- **Card #15 - Task-Based Design:** Create and follow task checklists
 - **Card #13 - Context Awareness:** Watch token usage
 - **Card #14 - Session Memory:** Use /remember for decisions
-- **Card #15 - Resuming Work:** Provide brief summary when reopening
 
 ## /remember Command Examples
 
 ```
+/remember Created REFACTOR-TASKS.md with refactoring checklist - use this to track progress
+
 /remember OrderService needs methods under 20 lines per project rules
 
 /remember createOrder() should be split into: validateOrder, calculateTotal, createNewOrder
+
+/remember Following checklist: completed method extraction tasks, now working on renaming
 
 /remember Validation should throw IllegalArgumentException with clear messages
 
@@ -174,6 +245,8 @@ After completing this challenge:
 - Documentation preserves decisions
 
 ### Skills Practiced
+- **Creating and following task checklists**
+- **Task-based design for complex refactoring**
 - Breaking work into phases
 - Documenting progress
 - Using /remember effectively

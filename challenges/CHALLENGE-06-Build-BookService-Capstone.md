@@ -5,10 +5,12 @@
 **Project:** claude-code-workshop (same directory)
 
 ## Learning Objectives
+- **Use full task-based design workflow** (plan, track, refine)
 - Apply all learned Claude Code skills
 - Build a complete feature from scratch
 - Demonstrate mastery of tools, rules, skills, and sub-agents
 - Create production-quality code
+- Practice collaborative planning with Claude
 
 ## Scenario
 
@@ -81,86 +83,199 @@ Create `BookServiceTest.java` with:
 - Test edge cases
 - Minimum 80% coverage
 
-## Suggested Approach
+## Task-Based Design Workflow
 
-### Step 1: Plan (2 min)
+This challenge uses the **full task-based design workflow** you learned. You'll collaborate with Claude to plan, implement, track, and refine your work.
 
-**Prompt to Claude:**
-```
-I'm building a complete BookService for the platform. Help me plan the approach:
-1. What order should I create the classes?
-2. What are the key business rules?
-3. What should I test?
-```
+### Phase 1: Collaborative Planning (4 min)
 
-Optional: Use /ideate skill or ask Claude to enter plan mode
-
-### Step 2: Generate or Create Boilerplate (3 min)
-
-**Option A - Use Your Skill:**
-```
-/java-service-generator Book
-```
-
-**Option B - Ask Claude:**
-```
-Create the Book entity, BookService interface, and BookServiceImpl implementation following the project rules in .claude/rules.md.
-```
-
-### Step 3: Implement Book Entity (3 min)
+**Step 1: Discuss requirements with Claude (1 min)**
 
 **Prompt to Claude:**
 ```
-Create Book.java in src/main/java/com/workshop/book/ with:
-- Properties: id, title, author, isbn, publishedYear, genre, price, stockQuantity
-- All private fields with public getters/setters
-- Javadoc on all public methods
-- Follow project rules
+I'm building a complete BookService API for the platform. Here are the requirements:
+- Book entity with properties: id, title, author, isbn, publishedYear, genre, price, stockQuantity
+- Repository interface with CRUD + custom finders
+- Service with business validation
+- Comprehensive tests
+
+Help me understand what we need to build.
 ```
 
-### Step 4: Implement Repository (2 min)
-
-**Prompt to Claude:**
-```
-Create BookRepository.java interface with CRUD methods and custom finders (findByAuthor, findByGenre, findByIsbn). Include complete Javadoc.
-```
-
-### Step 5: Implement Service (5 min)
+**Step 2: Create implementation checklist together (2 min)**
 
 **Prompt to Claude:**
 ```
-Create BookService interface and BookServiceImpl implementation with:
-- Constructor injection for repository
-- All CRUD operations
-- Input validation
-- Business rules: stock >= 0, price > 0, isbn format, valid year
-- Logging
-- All methods under 20 lines
-- Complete Javadoc
+Let's create a comprehensive task checklist together in BOOK-SERVICE-TASKS.md. Include:
+1. Setup tasks
+2. Entity creation
+3. Repository interface
+4. Service interface and implementation
+5. Validation logic
+6. Testing tasks
+7. Final verification
+
+Organize by phases and make each task concrete and actionable.
 ```
 
-### Step 6: Create Tests (4 min)
+Claude will generate something like:
+```markdown
+# BookService Implementation Checklist
 
-**Prompt to Claude:**
-```
-Create BookServiceTest.java with comprehensive unit tests:
-- Mock BookRepository using Mockito
-- Test all CRUD operations
-- Test validation (null checks, business rules)
-- Test edge cases
-- Use JUnit 5
+## Setup & Planning
+- [x] Review requirements with Claude
+- [x] Create task checklist
+
+## Entity Layer
+- [ ] Create Book.java entity class
+- [ ] Add all 8 properties with proper types
+- [ ] Generate getters and setters
+- [ ] Add Javadoc to entity class
+
+## Repository Layer
+- [ ] Create BookRepository interface
+- [ ] Add CRUD method signatures
+- [ ] Add custom finders (findByAuthor, findByGenre, findByIsbn)
+- [ ] Complete Javadoc for all methods
+
+## Service Layer - Interface
+- [ ] Create BookService interface
+- [ ] Define business method signatures
+- [ ] Add Javadoc to interface
+
+## Service Layer - Implementation
+- [ ] Create BookServiceImpl class
+- [ ] Implement constructor injection
+- [ ] Implement createBook with validation
+- [ ] Implement findBookById
+- [ ] Implement findAllBooks
+- [ ] Implement updateBook with validation
+- [ ] Implement deleteBook
+- [ ] Implement findByAuthor
+- [ ] Implement findByGenre
+- [ ] Add logging throughout
+
+## Validation Methods
+- [ ] Create validateBookInput helper method
+- [ ] Create validateStock helper method (>= 0)
+- [ ] Create validatePrice helper method (> 0)
+- [ ] Create validateISBN helper method
+- [ ] Create validatePublishedYear helper method (1450-current)
+
+## Testing
+- [ ] Create BookServiceTest class
+- [ ] Set up Mockito mocks
+- [ ] Test createBook success case
+- [ ] Test createBook with null input
+- [ ] Test findBookById
+- [ ] Test findAllBooks
+- [ ] Test updateBook
+- [ ] Test deleteBook
+- [ ] Test stock validation
+- [ ] Test price validation
+- [ ] Test ISBN validation
+- [ ] Test year validation
+- [ ] Verify 80%+ coverage
+
+## Final Verification
+- [ ] Run mvn compile - verify no errors
+- [ ] Run mvn test - all tests pass
+- [ ] Check all methods follow project rules (<20 lines)
+- [ ] Verify all public methods have Javadoc
+- [ ] Update PROGRESS.md
 ```
 
-### Step 7: Verify (1 min)
+**Step 3: Review and refine checklist (1 min)**
 
-**Prompt to Claude:**
+Review the checklist together:
 ```
-Run the tests to verify everything works: mvn test
+This looks good! Can we add a note about using BigDecimal for price under validation tasks?
+```
+
+Use /remember to save the plan:
+```
+/remember Created BOOK-SERVICE-TASKS.md with comprehensive implementation checklist
+
+/remember Building BookService with: Entity (Book), Repository (BookRepository), Service (BookService + Impl), Tests
+
+/remember Business rules to implement: stock >= 0, price > 0, ISBN format check, publishedYear 1450-current
+
+/remember Following project rules: methods <20 lines, complete Javadoc, constructor injection
+```
+
+### Phase 2: Systematic Implementation (12 min)
+
+Work through your checklist systematically. Reference it frequently and mark tasks complete as you go.
+
+**For Entity Layer (3 min):**
+```
+Following our BOOK-SERVICE-TASKS.md, let's start with the Entity Layer section. Create Book.java with all properties and follow project rules.
+```
+
+**For Repository Layer (2 min):**
+```
+Moving to Repository Layer in our checklist. Create BookRepository interface with CRUD and custom finders. Mark entity tasks complete.
+```
+
+**For Service Layer (5 min):**
+```
+Now the Service Layer section. Create BookService interface and BookServiceImpl. Implement all CRUD methods with validation from our Validation Methods section. Mark repository tasks complete as we go.
+```
+
+**For Testing (2 min):**
+```
+Final section: Testing. Create BookServiceTest with mocks and comprehensive test cases. Mark service tasks complete.
+```
+
+**Track your progress actively:**
+- Mark tasks complete as you finish them: `- [x]`
+- Ask Claude to update the checklist: `"Mark the 'Create Book.java' task complete"`
+- Use /remember for key decisions:
+  ```
+  /remember Completed entity and repository layers. All 15 tasks done. Moving to service implementation.
+
+  /remember Used BigDecimal for price per project financial calculation rule
+
+  /remember Added comprehensive validation with clear error messages in BookServiceImpl
+  ```
+
+### Phase 3: Verification (4 min)
+
+**Step 1: Check the checklist (1 min)**
+```
+Read BOOK-SERVICE-TASKS.md. What tasks are still incomplete?
+```
+
+**Step 2: Verify requirements met (1 min)**
+```
+Verify our BookService meets all requirements:
+1. All methods under 20 lines
+2. All public methods have Javadoc
+3. All business rules implemented
+4. Tests comprehensive with 80%+ coverage
+```
+
+**Step 3: Run tests (2 min)**
+```
+Run mvn compile and mvn test to verify everything works
+```
+
+### Phase 4: Final Documentation (optional, if time permits)
+
+```
+Update PROGRESS.md with BookService completion. Include: what was built, how many tasks completed, any challenges faced.
 ```
 
 ## Success Criteria
 
-Mandatory requirements:
+Task-Based Design:
+- [ ] **Created BOOK-SERVICE-TASKS.md** collaboratively with Claude
+- [ ] **Followed checklist systematically** during implementation
+- [ ] **Actively tracked progress** (marked tasks complete as finished)
+- [ ] **Used /remember** to maintain context throughout
+- [ ] **All checklist tasks completed**
+
+Technical Requirements:
 - [ ] All classes follow project rules (methods <20 lines, Javadoc)
 - [ ] Constructor injection used
 - [ ] Book entity complete with all properties
@@ -200,40 +315,59 @@ Mandatory requirements:
 
 ## Strategy Tips
 
-### Use All Your Skills
+### Use Task-Based Design (Primary Focus)
+- **Plan first:** Create detailed checklist with Claude before coding
+- **Reference checklist:** Keep BOOK-SERVICE-TASKS.md open and reference it
+- **Track actively:** Mark tasks complete as you go
+- **Refine as needed:** Add/modify tasks if you discover new requirements
+- **Use /remember:** Save progress and decisions throughout
+
+### Use All Your Claude Code Skills
 - **Rules:** Automatically applied from .claude/rules.md
-- **Skill:** Use java-service-generator if it helps
+- **Task-based design:** Create and follow checklist (from Challenge 5)
+- **Skill:** Use java-service-generator if it helps with boilerplate
 - **Sub-agents:** Use Explore if you need to research something
+- **Context management:** Use /remember throughout (from Challenge 5)
 - **Basic commands:** Read, Edit, Write, Bash throughout
 
-### Recommended Order
+### Recommended Implementation Order (From Your Checklist)
 1. Entity (foundation)
 2. Repository (data access contract)
 3. Service interface (business contract)
 4. Service implementation (business logic)
-5. Tests (verify everything)
+5. Validation helpers (business rules)
+6. Tests (verify everything)
 
 ### Quality Over Speed
+- Follow your checklist - don't skip steps
 - Follow all project rules
 - Write clean, maintainable code
 - Test thoroughly
 - Don't skip validation
+- Mark tasks complete as you finish them
 
 ## Hints
 
-### Hint 1 (Gentle)
-Start with the Book entity - it's the foundation everything else builds on.
+### Hint 1 (Gentle - Task-Based Design)
+Don't jump into coding! Start by creating a comprehensive task checklist with Claude. Planning saves time.
 
-### Hint 2 (Stronger)
-Use your java-service-generator skill to create the boilerplate quickly, then customize it.
+### Hint 2 (Stronger - Workflow)
+Follow the Phase 1-2-3-4 workflow exactly:
+1. Plan (create checklist)
+2. Implement (follow checklist, mark tasks done)
+3. Verify (check all requirements met)
+4. Document (update PROGRESS.md)
 
-### Hint 3 (Solution)
-Follow this exact sequence:
+### Hint 3 (Implementation Order)
+Your checklist should guide you, but the recommended order is:
 1. Book.java entity
 2. BookRepository.java interface
 3. BookService.java interface
 4. BookServiceImpl.java with validation and logging
 5. BookServiceTest.java with mocks and comprehensive tests
+
+### Hint 4 (Stuck?)
+If you're stuck, read your BOOK-SERVICE-TASKS.md. What's the next incomplete task? Ask Claude to help with just that one task.
 
 ## Bonus Challenges (If Time Permits)
 
@@ -280,12 +414,15 @@ Your `claude-code-workshop` now has:
 ## Reflection Questions
 
 After completing:
-1. What Claude Code features were most helpful?
-2. How did project rules improve your workflow?
-3. When would you use sub-agents in real projects?
-4. How will you use Claude Code in your daily work?
-5. What was the most challenging part?
-6. What was the biggest learning?
+1. **How did task-based design (using checklists) help or hinder your work?**
+2. **Would you use task checklists in your real projects? Why or why not?**
+3. What Claude Code features were most helpful?
+4. How did project rules improve your workflow?
+5. When would you use sub-agents in real projects?
+6. How will you use Claude Code in your daily work?
+7. What was the most challenging part?
+8. What was the biggest learning?
+9. **Did creating a plan first save time or feel like overhead?**
 
 ## Keep This Project!
 
