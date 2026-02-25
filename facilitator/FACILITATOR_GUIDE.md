@@ -228,67 +228,134 @@ Open floor for questions
 
 ---
 
-### 1:15-1:30 | Challenge 5: Refactor OrderService (15 min)
+### 1:15-1:20 | Introduction: Task-Based Design with Claude (5 min)
+
+**IMPORTANT: Present this BEFORE Challenge 5**
+
+**Overview (1 min)**
+- "Before Challenge 5, let's learn a powerful technique: task-based design"
+- "It's like pair programming with Claude - you create a shared plan"
+- "You'll practice this in Challenges 5 and 6"
+
+**The Concept (2 min)**
+- **What:** Create markdown checklist as "contract" with Claude
+- **Why:** Planning prevents scope creep, tracks progress, maintains context
+- **When:** Features with 3+ steps, multi-file changes, complex refactoring
+- **How:** Ask Claude to create checklist → Work through it together
+
+**Example (1.5 min)**
+Show example checklist (display or handout):
+```markdown
+# BookService Implementation Plan
+
+## Setup
+- [ ] Create Book entity
+- [ ] Create BookRepository
+
+## Implementation
+- [ ] Implement createBook
+- [ ] Add validation
+
+## Testing
+- [ ] Write tests
+- [ ] Verify coverage
+```
+
+Explain: "Simple format, clear tasks, check off as you go"
+
+**Practice Ahead (0.5 min)**
+- "Challenge 5: Claude generates refactoring checklist for you"
+- "Challenge 6: Full workflow - create checklist together, track progress, refine"
+- "Strategy Card 15 has examples and tips"
+
+**Distribute Strategy Card 15**
+
+---
+
+### 1:20-1:35 | Challenge 5: Refactor OrderService (15 min)
 
 **Introduction (2 min)**
+- "Now you'll practice task-based design"
 - Explain context management importance
 - Introduce /remember command
-- "This simulates multi-day refactoring"
+- "This simulates multi-day refactoring WITH a plan"
+- Emphasize: "Start by creating a checklist with Claude"
 
 **Working Time (11 min)**
-- Phase 1: Analysis (3 min)
-- Phase 2: Refactor (5 min)
+- Phase 1: Analysis & Create Checklist (4 min) - **NEW**
+- Phase 2: Refactor following checklist (5 min) - **UPDATED**
 - Phase 3: Close/Resume session (1 min)
-- Phase 4: Verify (2 min)
+- Phase 4: Verify (1 min)
 
 **Facilitation Notes:**
-- At 5 min mark: "Have you used /remember at least once?"
+- **At 2 min mark:** "Everyone should be creating REFACTOR-TASKS.md checklist now"
+- **At 4 min mark:** "You should have your checklist. Now start refactoring, following it"
+- **At 6 min mark:** "Are you marking tasks complete as you finish them?"
 - At 8 min mark: "Time to close and resume Claude Code"
 - Help participants with context when resuming
+- **At 10 min mark:** "Check your checklist - what's left to complete?"
 
 **Common Issues:**
+- **Skipping checklist creation** (stop them, make them create it first)
+- **Not following checklist** (remind: "What's next on your checklist?")
+- **Not marking tasks complete** (show them how: change `[ ]` to `[x]`)
 - Not using /remember (remind them)
 - Forgetting to close/resume (enforce this step)
 - Not providing context when resuming
 - Refactoring too aggressive or not enough
 
 **Wrap-up (2 min)**
+- "Who created and followed a checklist?" (should be everyone)
 - "How many lines did you reduce OrderService by?"
-- Key takeaway: Context management for long tasks
-- Real-world: features spanning multiple days
+- **Key takeaway: Checklists + context management for long tasks**
+- Real-world: "Use checklists for any feature spanning multiple sessions"
 
 ---
 
-### 1:30-1:50 | Challenge 6: Build BookService (Capstone) (20 min)
+### 1:35-1:55 | Challenge 6: Build BookService (Capstone) (20 min)
 
 **Introduction (2 min)**
 - "This is your capstone - integrate everything"
 - Requirements review
-- "Use ALL skills learned: rules, skills, sub-agents"
+- "Use ALL skills learned: rules, skills, sub-agents, **task-based design**"
+- **Emphasize:** "Start by creating detailed checklist with Claude"
 - Emphasize quality over speed
 
-**Working Time (16 min)**
-- Participants build complete BookService
-- Entity, repository, service, tests
-- Full CRUD + validation + tests
+**Working Time (18 min)**
+- Phase 1: Planning (4 min) - Create BOOK-SERVICE-TASKS.md
+- Phase 2: Implementation (12 min) - Follow checklist
+- Phase 3: Verification (2 min) - Check all requirements
 
 **Facilitation:**
-- Circulate actively
-- Check progress at 8-min mark
+- **At 2 min mark:** "Everyone should be creating checklist with Claude"
+- **At 4 min mark:** "Checklist done? Start implementing, follow it systematically"
+- **At 8 min mark (halfway):** Check progress:
+  - "You should have entity and repository done"
+  - "Are you marking tasks complete?"
+  - "Reference your checklist to stay focused"
+- **At 12 min mark:** "Should be on service implementation or tests"
+- **At 15 min mark:** "Wrap up - get tests passing"
+- Circulate actively throughout
 - Provide hints for those stuck
 - Encourage using their custom skill
 - Remind about project rules
+- **Point to checklists:** "What's next on your checklist?"
 
 **Common Issues:**
+- **Skipping checklist creation** (critical - stop and make them create it)
+- **Not following checklist** (loses focus, scope creeps)
+- **Checklist too vague** (help them make tasks specific)
 - Trying to do too much (bonus features)
 - Skipping tests
 - Not following project rules
 - Forgetting validation
+- **Not marking progress** (remind them to check off tasks)
 
 **Wrap-up (2 min)**
 - "Who got BookService working with tests?"
+- "Who used task-based design effectively?"
 - "Run `mvn test` to verify"
-- Key takeaway: Integration of all concepts
+- **Key takeaway: Task-based design + all skills = powerful workflow**
 - Congratulate completion!
 
 ---
